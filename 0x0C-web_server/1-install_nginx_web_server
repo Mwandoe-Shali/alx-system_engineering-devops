@@ -2,7 +2,7 @@
 # installs nginx and configures it on a remote server
 
 # Updating Packages before making Installations
-sudo apt-get -y update
+sudo apt-get update
 sudo apt-get -y install nginx
 
 # Configuring the Uncomplicated Firewall (UFW) to allow incoming traffic for the Nginx HTTP service
@@ -13,5 +13,5 @@ echo 'Hello World!' | sudo tee /var/www/html/index.html
 # Testing Nginx configurations for Syntax errors
 sudo nginx -t
 
-# Reload the Nginx configuration without stopping the service or interrupting client requests.
-sudo service nginx reload
+# Restarting Nginx
+sudo service nginx start
