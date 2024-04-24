@@ -7,7 +7,7 @@ sudo apt-get install -y nginx
 replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Mwandoe-Shali permanent;"
 sudo sed -i "s|server_name _;|$replacement_string|" /etc/nginx/sites-enabled/default
 # Used pipes (|) instead of /. Kept getting sed: -e expression #1, char 90: unknown option to 's' 
-# 	Since the replacement string contains forward slashes, it's interfering with sed's parsing.
+# 	Since the replacement string contains forward slashes, it's interfering with 'sed' `s parsing.
 
 # Restarting nginx
 if [ "$(pgrep -c nginx)" -le 0 ]; then
