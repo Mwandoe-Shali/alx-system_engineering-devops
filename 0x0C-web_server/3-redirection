@@ -2,9 +2,12 @@
 # Installs, configures, and starts the server
 sudo apt-get update
 sudo apt-get install -y nginx
-replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Mwandoe-Shali permanent;"
 
+# Performing a 301 Redirection
+replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Mwandoe-Shali permanent;"
 sudo sed -i "s|server_name _;|$replacement_string|" /etc/nginx/sites-enabled/default
+
+# Restarting nginx
 if [ "$(pgrep -c nginx)" -le 0 ]; then
 	sudo service nginx start
 else
