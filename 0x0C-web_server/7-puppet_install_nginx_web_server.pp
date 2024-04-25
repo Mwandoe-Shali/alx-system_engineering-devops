@@ -1,4 +1,4 @@
-# This manifest installs ngix and adds redirect page
+# This manifest installs nginx and adds redirect page
 
 package {'nginx':
   ensure => present,
@@ -7,15 +7,14 @@ package {'nginx':
 
 file {'/var/www/html/index.html':
   ensure  => present,
-  path    => '/var/www/html/index.html',
   content => 'Hello World!',
 }
 
 file_line { 'redirect_me':
   ensure => present,
-  path   => '/etc/nginx/sites-available/default',
+  path   => '/etc/nginx/sites-enabled/default',
   after  => 'listen 80 default_server;',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+  line   => 'rewrite ^/redirect_me https://youtu.be/myZ29u1gpWQ?t=83 permanent;',
 }
 
 service { 'nginx':
