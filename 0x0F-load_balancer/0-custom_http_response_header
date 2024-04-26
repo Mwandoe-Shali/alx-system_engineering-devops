@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Configures HTTPS response headers for the web servers
+
+sudo sed -i "/Server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+
+sudo nginx -t
+
+sudo servics nginx reload
