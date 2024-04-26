@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 # Configures HTTPS response headers for the web servers
 
-sudo sed -i "/Server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-enabled/default
+sudo apt-get update
+sudo apt-get -y install nginx
+
+# configure firewall to allow request through port 80
+sudo ufw allow 'Nginx HTTP'
+
+string_for_replacement="server_name _;\n\tadd_header X-Served-By \$hostname;
+sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
 sudo nginx -t
 
