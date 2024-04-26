@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# All web-01 configurations.
+
+# Updating Packages before making Installations
+sudo apt-get update
+sudo apt-get -y install nginx
+
+# Configuring the Uncomplicated Firewall (UFW) to allow incoming traffic for the Nginx HTTP service
+sudo ufw allow 'Nginx HTTP'
+
+# A simple index.html file to test that the server is properly configured
+echo 'Hello World!' | sudo tee /var/www/html/index.html
+
+# Performing a 301 Redirection
+replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Mwandoe-Shali permanent;"
+sudo sed -i "s|server_name _;|$replacement_string|" /etc/nginx/sites-enabled/default
+
+# Setting up the custom 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+replacement_string="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s|listen 80 default_server;|$replacement_string|" /etc/nginx/sites-enabled/default
+
+# Testing Nginx configurations for Syntax errors
+sudo nginx -t
+
+# Restarting nginx
+if [ "$(pgrep -c nginx)" -le 0 ]; then
+	sudo service nginx start
+else
+	sudo service nginx reload
+fi
