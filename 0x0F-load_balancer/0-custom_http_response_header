@@ -7,9 +7,19 @@ sudo apt-get -y install nginx
 # configure firewall to allow request through port 80
 sudo ufw allow 'Nginx HTTP'
 
+# Performing a 301 Redirection
+replacement_string="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/Mwandoe-Shali permanent;"
+sudo sed -i "s|server_name _;|$replacement_string|" /etc/nginx/sites-enabled/default
+
+# Setting up the custom 404 error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+replacement_string="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}"
+sudo sed -i "s|listen 80 default_server;|$replacement_string|" /etc/nginx/sites-enabled/default
+
+# Adding the X-Served-By header
 string_for_replacement="server_name _;\n\tadd_header X-Served-By \$hostname;
 sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled/default
 
 sudo nginx -t
 
-sudo servics nginx reload
+sudo service nginx reload
