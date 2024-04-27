@@ -22,4 +22,4 @@ sudo sed -i "s/server_name _;/$string_for_replacement/" /etc/nginx/sites-enabled
 
 sudo nginx -t
 
-sudo service nginx reload
+sudo service nginx restart
