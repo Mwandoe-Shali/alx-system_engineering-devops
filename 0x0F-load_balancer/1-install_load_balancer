@@ -17,8 +17,8 @@ frontend  shali_frontend
         default_backend shali_backend
 backend shali_backend
         balance roundrobin
-        server 176572-web-01 18.204.3.143:80 check
-        server 176572-web-02 3.94.185.54:80 check
+        server 190044-web-01 18.204.3.143:80 check
+        server 190044-web-02 3.94.185.54:80 check
 "
 
 # Add the server configuration to the haproxy config file
