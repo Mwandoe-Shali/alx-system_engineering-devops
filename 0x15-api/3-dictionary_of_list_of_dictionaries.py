@@ -11,18 +11,18 @@ import sys
 
 
 if __name__ == '__main__':
-    full_url = "https://jsonplaceholder.typicode.com/users"
+    link = "https://jsonplaceholder.typicode.com/users"
 
-    response = requests.get(full_url)
+    response = requests.get(link)
     users = response.json()
 
     dict = {}
     for user in users:
         user_id = user.get('id')
         username = user.get('username')
-        full_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
-        full_url = full_url + '/todos/'
-        response = requests.get(full_url)
+        link = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
+        link = link + '/todos/'
+        response = requests.get(link)
         tasks = response.json()
         dict[user_id] = []
         for task in tasks:
