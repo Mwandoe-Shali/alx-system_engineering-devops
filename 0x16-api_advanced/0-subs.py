@@ -14,7 +14,7 @@ def number_of_subscribers(subreddit):
         int: The number of subscribers of the subreddit.
              Returns 0 if the subreddit is invalid or inaccessible.
     """
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
     headers = {"User-Agent": "Mozilla/5.0"}  # Custom User-Agent
     response = requests.get(url, headers=headers, allow_redirects=False)
 
