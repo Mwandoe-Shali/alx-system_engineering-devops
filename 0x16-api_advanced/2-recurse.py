@@ -5,7 +5,8 @@ of all hot articles for a given subreddit.
 """
 
 import requests
-after=None
+after = None
+
 
 def recurse(subreddit, hot_list=[]):
     """
