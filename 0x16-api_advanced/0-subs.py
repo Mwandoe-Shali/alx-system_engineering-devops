@@ -2,8 +2,7 @@
 """
 Queries the Reddit API for the number of subscribers of a given subreddit.
 """
-
-import requests
+from requests import get
 
 
 def number_of_subscribers(subreddit):
@@ -14,13 +13,16 @@ def number_of_subscribers(subreddit):
         int: The number of subscribers of the subreddit.
              Returns 0 if the subreddit is invalid or inaccessible.
     """
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {"User-Agent": "Mozilla/5.0"}  # Custom User-Agent
-    response = requests.get(url, headers=headers, allow_redirects=False)
+    if subreddit is None or not isinstance(subreddit, str):
+        return 0
 
-    if response.status_code == 200:
-        data = response.json()
-        subscribers = data["data"]["subscribers"]
-        return subscribers
-    else:
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    response = get(url, headers=user_agent)
+    results = response.json()
+
+    try:
+        return results.get('data').get('subscribers')
+
+    except Exception:
         return 0
