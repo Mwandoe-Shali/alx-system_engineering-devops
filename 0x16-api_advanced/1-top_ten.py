@@ -24,3 +24,6 @@ def top_ten(subreddit):
             print("No posts found for this subreddit.")
     else:
         print("None")
+
+if __name__ == "__main__":
+    top_ten("programming")  # For testing purposes
